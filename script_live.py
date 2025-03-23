@@ -2,8 +2,8 @@ import subprocess
 import time
 import requests
 
-
-channel_url = "https://www.youtube.com/@flosssi/live" 
+# Update the channel URL
+channel_url = "https://www.youtube.com/@flosssi/live"  # New channel URL
 
 def is_live(url):
     try:
@@ -18,23 +18,23 @@ def is_live(url):
     return False
 
 def record_live():
-    print("[🎥] البث بدأ! جاري التسجيل...")
+    print("[🎥] The live broadcast has started! Recording...")
     subprocess.call([
         "yt-dlp",
         "--live-from-start",
-        "-f", "bestvideo+bestaudio",  
-        "--merge-output-format", "mp4", 
+        "-f", "bestvideo+bestaudio",  # Download best video and audio
+        "--merge-output-format", "mp4",  # Merge audio and video into one file
         "-o", "mustaphaelmaakoul - %(title)s.%(ext)s",
         channel_url
     ])
-    print("[🎥] تم تنزيل جزء من الفيديو.")
+    print("[🎥] A part of the video has been downloaded.")
 
-print("[⏳] جاري مراقبة القناة... انتظر بدء البث المباشر.")
+print("[⏳] Monitoring the channel... Waiting for the live broadcast to start.")
 
-
+# Continuous check
 while True:
     if is_live(channel_url):
         record_live()
     else:
-        print("[⏳] البث غير متاح، سيتم التحقق مرة أخرى بعد 60 ثانية.")
-    time.sleep(60) 
+        print("[⏳] The live broadcast is unavailable, checking again in 60 seconds.")
+    time.sleep(60)  # Wait for 1 minute before the next check
